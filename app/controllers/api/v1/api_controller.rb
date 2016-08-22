@@ -5,9 +5,9 @@ class Api::V1::ApiController < ApplicationController
 		@user = User.create(username: params[:username], email: params[:email], password: params[:password], api_key: params[:api_key], subdomain: params[:subdomain])
 		if @user.save 
 			Apartment::Tenant.create(@user.subdomain)
-			render json: {data: @user, message: "User Created", status: 201}
+			render json: {data: @user, message: "User Sign Up Completed", status: 201}
     else
-      render json: {message: "User Not Creted", status: 500}
+      render json: {message: "User is Not Creted", status: 500}
 		end
 	end
 
@@ -18,9 +18,9 @@ class Api::V1::ApiController < ApplicationController
 			@user = User.find_by_username_and_password(params[:username], params[:password])
 		end
 		if @user 
-			render json: {message: "User Found", status: 200}
+			render json: {message: "User Sign In Successfully", status: 200}
     else
-      render json: {message: "User Not Creted", status: 500}
+      render json: {message: "User Not Found", status: 500}
 		end
 	end
 
